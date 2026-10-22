@@ -21,5 +21,18 @@ def server(input, output, session):
         ax.plot(x, y1)
         
         return fig
+def server (input, output, session):
+    @output
+    @render.plot
+    def grafico2():
+        x=np.linspace(0,2*np.pi,200)
+        y=np.sin(x)
+        y1=np.cos(x)
+
+        fig,ax=plt.subplots()
+        ax.plot(x,y)
+        ax.plot(x,y1)
+
+        return fig
 
 app = App(app_ui, server)
