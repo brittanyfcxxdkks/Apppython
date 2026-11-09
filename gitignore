@@ -1,0 +1,4 @@
+# Archivos generados al ejecutar Python o Jupyter: no se suben al repositorio
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
