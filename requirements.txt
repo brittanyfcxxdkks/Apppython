@@ -1,0 +1,7 @@
+shiny
+shinywidgets
+plotly
+anywidget
+seaborn
+pandas
+numpy
