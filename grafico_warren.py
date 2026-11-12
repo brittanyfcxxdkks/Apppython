@@ -4,7 +4,7 @@ grafico_warren.py  -  Parte de Warren del proyecto de análisis de exoplanetas.
 Datos: conjunto «planets» de seaborn (1035 planetas descubiertos entre 1989 y 2014).
 
 Dos visualizaciones interactivas (Shiny para Python + plotly):
-  1. Línea de tiempo: ¿cuándo despegaron los descubrimientos y qué método los impulsó?
+  1. Línea de tiempo: ¿Cómo ha evolucionado la cantidad de planetas descubiertos cada año y qué métodos han aportado más en cada etapa?
   2. Masa y distancia por década: ¿son los planetas que detecta Radial Velocity más
      livianos y más lejanos con el paso de las décadas?
 
@@ -526,7 +526,7 @@ panel_warren = ui.nav_panel(
             # ---- Gráfico 1: línea de tiempo ----
             ui.nav_panel(
                 "Línea de tiempo",
-                ui.p("¿Cuándo despegaron los descubrimientos de exoplanetas y qué método los impulsó?"),
+                ui.p("¿Cómo ha evolucionado la cantidad de planetas descubiertos cada año y qué métodos han aportado más en cada etapa?"),
                 ui.p("Cada área es un método y su altura es la cantidad de planetas descubiertos "
                      "ese año. Las líneas punteadas marcan hitos de la historia de los exoplanetas.",
                      class_="text-muted small"),

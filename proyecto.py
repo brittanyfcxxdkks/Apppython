@@ -4,6 +4,7 @@ import numpy as np
 import seaborn as sns
 import plotly.express as px
 from shinywidgets import output_widget, render_widget
+from grafico_warren import panel_warren, servidor_warren
 planets= sns.load_dataset("planets")
 planets = sns.load_dataset("planets")
 
@@ -45,7 +46,7 @@ app_ui = ui.page_navbar(
 
         ui.h3("Preguntas de investigación"),
 
-        ui.tags.ol(
+               ui.tags.ol(
             ui.tags.li(
                 "¿Cuál es el método mediante el cual "
                 "se han descubierto más planetas?"
@@ -55,12 +56,13 @@ app_ui = ui.page_navbar(
                 "orbitales de los planetas?"
             ),
             ui.tags.li(
-                "¿la pregunta que responda su grafico"
-                "ya saben?"
+                "¿Cómo ha evolucionado la cantidad de planetas "
+                "descubiertos cada año y qué métodos han aportado "
+                "más en cada etapa?"
             ),
             ui.tags.li(
-                 "¿las pregunta que responda su grafico"
-                 "ya sabemos?"
+                "¿Son los planetas que detecta Radial Velocity "
+                "más livianos y más lejanos con el paso de las décadas?"
             )
         )
     ),
@@ -115,10 +117,14 @@ app_ui = ui.page_navbar(
             )
         )
     ),
+    
+    panel_warren,
 
     title="Análisis de planetas"
 )
 def server(input, output, session):
+
+    servidor_warren(input, output, session)
 
     @reactive.calc
     def datos_filtrados():
