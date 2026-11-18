@@ -33,6 +33,10 @@ app_ui = ui.page_navbar(
             "los métodos de descubrimiento y diferentes "
             "características de los planetas."
         ),
+        ui.h4("Tabla de datos"),
+        ui.card(
+            ui.output_data_frame("tabla_planetas")
+        ),
 
         ui.h3("Objetivo"),
 
@@ -108,6 +112,11 @@ def server(input, output, session):
 
     servidor_warren(input, output, session)
 
+    @render.data_frame
+    def tabla_planetas():
+        return render.DataGrid(planets.head(10))
+    
+        
     @reactive.calc
     def datos_filtrados():
 
