@@ -38,6 +38,29 @@ app_ui = ui.page_navbar(
             ui.output_data_frame("tabla_planetas")
         ),
 
+        ui.h3("Descripción de las variables"),
+        ui.p(
+            "El conjunto de datos planets contiene las variables vistas anteriormente."
+            
+            " Podemos observar que method es el método utilizado para descubrir el planeta."
+            " Esta es una varoble cualitativa nominal."
+            
+            " Number es la cantidad de planetas descubiertos alrededor de una estrella."
+            " Esta es una variable cuantitativa	discreta."
+            
+            " Orbital_period es el tiempo que tarda un planeta en completar una órbita alrededor de su estrella, medido en días."
+            "Esta es una variable cuantitativa	continua"
+
+            " La variable mass Masa del planeta, expresada en relación con la masa de Júpiter."
+            " Esta es una variable cuantitativa	continua"
+
+            " La variable distance Distancia entre el sistema planetario y la Tierra, expresada en pársecs."	
+            " Esta es cuantitativa	continua"
+
+            "Por ultimo la variable year que es el año en que fue descubierto el planeta."
+            " Esta es cuantitativa	discreta."
+        ),
+
         ui.h3("Objetivo"),
 
         ui.p(
