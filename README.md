@@ -67,7 +67,7 @@ objetivo y las preguntas de investigación.
 ### Análisis interactivo
 
 Gráfico de barras con la cantidad de planetas descubiertos por método, con filtros por método de
-descubrimiento y por rango de años.
+descubrimiento.
 
 ### Evolución de los descubrimientos
 
