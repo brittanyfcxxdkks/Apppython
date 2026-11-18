@@ -4,13 +4,12 @@ import numpy as np
 import seaborn as sns
 import plotly.express as px
 from shinywidgets import output_widget, render_widget
+from grafico_warren import panel_warren, servidor_warren
 planets= sns.load_dataset("planets")
 planets = sns.load_dataset("planets")
 
 metodos = sorted(planets["method"].dropna().unique())
 
-anio_min = int(planets["year"].min())
-anio_max = int(planets["year"].max())
 
 app_ui = ui.page_navbar(
 
@@ -45,22 +44,23 @@ app_ui = ui.page_navbar(
 
         ui.h3("Preguntas de investigación"),
 
-        ui.tags.ol(
+               ui.tags.ol(
             ui.tags.li(
                 "¿Cuál es el método mediante el cual "
                 "se han descubierto más planetas?"
             ),
             ui.tags.li(
-                "¿Cómo se distribuyen los períodos "
-                "orbitales de los planetas?"
+                "¿ACA EL DE JAIR "
+                "ACA IRIA EL DE JAIR?"
             ),
             ui.tags.li(
-                "¿la pregunta que responda su grafico"
-                "ya saben?"
+                "¿Cómo ha evolucionado la cantidad de planetas "
+                "descubiertos cada año y qué métodos han aportado "
+                "más en cada etapa?"
             ),
             ui.tags.li(
-                 "¿las pregunta que responda su grafico"
-                 "ya sabemos?"
+                "¿Son los planetas que detecta Radial Velocity "
+                "más livianos y más lejanos con el paso de las décadas?"
             )
         )
     ),
@@ -82,14 +82,6 @@ app_ui = ui.page_navbar(
                     choices=metodos,
                     selected=metodos,
                     multiple=True
-                ),
-
-                ui.input_slider(
-                    "anios",
-                    "Rango de años:",
-                    min=anio_min,
-                    max=anio_max,
-                    value=(anio_min, anio_max)
                 )
             ),
 
@@ -103,22 +95,18 @@ app_ui = ui.page_navbar(
                     ui.card(
                         output_widget("grafico_metodos")
                     )
-                ),
-
-                ui.nav_panel(
-                    "Distribución del período orbital",
-
-                    ui.card(
-                        output_widget("grafico_histograma")
-                    )
                 )
             )
         )
     ),
+    
+    panel_warren,
 
     title="Análisis de planetas"
 )
 def server(input, output, session):
+
+    servidor_warren(input, output, session)
 
     @reactive.calc
     def datos_filtrados():
@@ -136,14 +124,6 @@ def server(input, output, session):
         else:
             datos = datos.iloc[0:0]
 
-        # Filtrar por año
-
-        desde, hasta = input.anios()
-
-        datos = datos[
-            (datos["year"] >= desde) &
-            (datos["year"] <= hasta)
-        ]
 
         return datos
 
@@ -169,31 +149,13 @@ def server(input, output, session):
                 "method": "Método de descubrimiento",
                 "cantidad": "Cantidad de planetas"
             },
-            hover_data=["cantidad"]
+            hover_data=["cantidad"],
+            color="method",
+            color_discrete_sequence=["#FFD700", "#4682B4", "#66A182", "#DB7093", "#E69F52","#8B4513", "#DC143C","#6A0DAD", "#FFA500","#9370DB"]
         )
 
         fig.update_layout(
             xaxis_tickangle=-35
-        )
-
-        return fig
-
-    @render_widget
-    def grafico_histograma():
-
-        datos = datos_filtrados().dropna(
-            subset=["orbital_period"]
-        )
-
-        fig = px.histogram(
-            datos,
-            x="orbital_period",
-            nbins=30,
-            title="Distribución del período orbital",
-            labels={
-                "orbital_period": "Período orbital (días)",
-                "count": "Cantidad de planetas"
-            }
         )
 
         return fig
