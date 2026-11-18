@@ -6,6 +6,7 @@ import plotly.express as px
 from shinywidgets import output_widget, render_widget
 from grafico_warren import panel_warren, servidor_warren
 from analisis_extra import paneles_extra, servidor_extra
+from tema_planetas import TEMA, estilo_global, estilo_plotly
 planets= sns.load_dataset("planets")
 planets = sns.load_dataset("planets")
 
@@ -77,10 +78,7 @@ app_ui = ui.page_navbar(
                 "¿Cuál es el método mediante el cual "
                 "se han descubierto más planetas?"
             ),
-            ui.tags.li(
-                "¿ACA EL DE JAIR "
-                "ACA IRIA EL DE JAIR?"
-            ),
+
             ui.tags.li(
                 "¿Cómo ha evolucionado la cantidad de planetas "
                 "descubiertos cada año y qué métodos han aportado "
@@ -135,7 +133,9 @@ app_ui = ui.page_navbar(
     panel_warren,
     *paneles_extra(planets),
 
-    title="Análisis de planetas"
+    title="Análisis de planetas",
+    theme=TEMA,
+    header=estilo_global(),
 )
 def server(input, output, session):
 
@@ -190,14 +190,15 @@ def server(input, output, session):
             },
             hover_data=["cantidad"],
             color="method",
-            color_discrete_sequence=["#FFD700", "#4682B4", "#66A182", "#DB7093", "#E69F52","#8B4513", "#DC143C","#6A0DAD", "#FFA500","#9370DB"]
+            color_discrete_sequence=["#FFD700", "#4682B4", "#66A182", "#DB7093", "#E69F52","#8B4513", "#DC143C","#6A0DAD", "#FFA500","#9370DB"],
+            template="plotly_dark",
         )
 
         fig.update_layout(
             xaxis_tickangle=-35
         )
 
-        return fig
+        return estilo_plotly(fig)
 
 
 app = App(app_ui, server)
