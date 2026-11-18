@@ -5,6 +5,7 @@ import seaborn as sns
 import plotly.express as px
 from shinywidgets import output_widget, render_widget
 from grafico_warren import panel_warren, servidor_warren
+from analisis_extra import paneles_extra, servidor_extra
 planets= sns.load_dataset("planets")
 planets = sns.load_dataset("planets")
 
@@ -88,6 +89,10 @@ app_ui = ui.page_navbar(
             ui.tags.li(
                 "¿Son los planetas que detecta Radial Velocity "
                 "más livianos y más lejanos con el paso de las décadas?"
+            ),
+            ui.tags.li(
+                "¿Cada método de descubrimiento detecta planetas en una "
+                "zona distinta de período orbital y distancia?"
             )
         )
     ),
@@ -128,12 +133,14 @@ app_ui = ui.page_navbar(
     ),
     
     panel_warren,
+    *paneles_extra(planets),
 
     title="Análisis de planetas"
 )
 def server(input, output, session):
 
     servidor_warren(input, output, session)
+    servidor_extra(input, output, session, planets)
 
     @render.data_frame
     def tabla_planetas():
