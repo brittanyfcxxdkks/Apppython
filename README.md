@@ -57,6 +57,22 @@ los planetas que detecta cada uno.
 orbital y distancia conocidos a la vez, y la masa solo se conoce casi completa para los planetas detectados
 con el método Radial Velocity (92% de sus planetas; Transit, Imaging y Microlensing tienen 0%).
 
+### Métodos de detección (`method`)
+
+| Método | Traducción | Planetas | Descripción |
+| :--- | :--- | :--- | :--- |
+| `Radial Velocity` | Velocidad radial | 553 | Detecta el ligero bamboleo gravitacional de una estrella causado por un planeta, midiendo los cambios en su luz mediante el efecto Doppler. |
+| `Transit` | Tránsito | 397 | Mide la pequeña y periódica disminución en el brillo de una estrella cuando un planeta pasa exactamente por delante de ella. |
+| `Imaging` | Imagen directa | 38 | Captura fotografías directas de planetas jóvenes, masivos y muy alejados de su estrella bloqueando el resplandor estelar. |
+| `Microlensing` | Microlente gravitacional | 23 | Aprovecha la gravedad de una estrella y su planeta en primer plano para curvar y amplificar temporalmente la luz de una estrella de fondo. |
+| `Eclipse Timing Variations` | Variaciones en el tiempo de eclipse | 9 | Detecta anomalías en el momento exacto en que dos estrellas binarias se eclipsan entre sí, causadas por la gravedad de un planeta cercano. |
+| `Pulsar Timing` | Temporización de púlsares | 5 | Mide alteraciones minúsculas en la regularidad de las ondas de radio emitidas por un púlsar debido al tirón gravitacional de un planeta. |
+| `Transit Timing Variations` | Variaciones en el tiempo de tránsito | 4 | Identifica planetas ocultos al notar retrasos o adelantos en el tránsito de otro planeta ya conocido dentro del mismo sistema. |
+| `Orbital Brightness Modulation` | Modulación del brillo orbital | 3 | Detecta variaciones en la luz combinada del sistema debido a las fases del planeta o al calor que refleja. |
+| `Astrometry` | Astrometría | 2 | Mide con altísima precisión el desplazamiento físico de una estrella en el plano del cielo respecto a otras estrellas lejanas. |
+| `Pulsation Timing Variations` | Variaciones en la pulsación estelar | 1 | Observa cambios en los ciclos naturales de expansión y contracción de estrellas variables causados por cuerpos en órbita. |
+
+
 ## La aplicación
 
 ### Descripción del proyecto
