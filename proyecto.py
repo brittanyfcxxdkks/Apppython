@@ -16,84 +16,137 @@ metodos = sorted(planets["method"].dropna().unique())
 app_ui = ui.page_navbar(
 
 
-    ui.nav_panel(
-        "Descripción del proyecto",
 
+    
+
+ui.nav_panel(
+    "Descripción del proyecto",
+
+    ui.tags.style("""
+        .descripcion {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .seccion {
+            margin-top: 30px;
+            margin-bottom: 14px;
+        }
+
+        .pregunta {
+            background-color: rgba(70, 130, 180, 0.10);
+            border: 1px solid rgba(70, 130, 180, 0.25);
+            border-left: 5px solid #4682B4;
+            padding: 20px 22px;
+            margin: 14px 0;
+            border-radius: 10px;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .pregunta-titulo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4682B4;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .contenido-descripcion {
+            max-width: 1100px;
+            margin: auto;
+            padding: 15px 20px;
+        }
+    """),
+
+    ui.div(
         ui.h2("Exploración de datos sobre planetas"),
 
         ui.p(
             "En este proyecto se analiza información "
             "sobre planetas descubiertos fuera de "
-            "nuestro sistema solar."
+            "nuestro sistema solar.",
+            class_="descripcion"
         ),
 
-        ui.h3("Conjunto de datos"),
+        ui.h3("Conjunto de datos", class_="seccion"),
 
         ui.p(
             "Se utiliza el conjunto de datos planets "
             "de Seaborn, que contiene información sobre "
             "los métodos de descubrimiento y diferentes "
-            "características de los planetas."
+            "características de los planetas.",
+            class_="descripcion"
         ),
-        ui.h4("Tabla de datos"),
+
+        ui.h4("Tabla de datos", class_="seccion"),
+
         ui.card(
             ui.output_data_frame("tabla_planetas")
         ),
 
-        ui.h3("Descripción de las variables"),
+        ui.h3("Descripción de las variables", class_="seccion"),
+
         ui.p(
-            "El conjunto de datos planets contiene las variables vistas anteriormente."
-            
-            " Podemos observar que method es el método utilizado para descubrir el planeta."
-            " Esta es una varoble cualitativa nominal."
-            
-            " Number es la cantidad de planetas descubiertos alrededor de una estrella."
-            " Esta es una variable cuantitativa	discreta."
-            
-            " Orbital_period es el tiempo que tarda un planeta en completar una órbita alrededor de su estrella, medido en días."
-            "Esta es una variable cuantitativa	continua"
-
-            " La variable mass Masa del planeta, expresada en relación con la masa de Júpiter."
-            " Esta es una variable cuantitativa	continua"
-
-            " La variable distance Distancia entre el sistema planetario y la Tierra, expresada en pársecs."	
-            " Esta es cuantitativa	continua"
-
-            "Por ultimo la variable year que es el año en que fue descubierto el planeta."
-            " Esta es cuantitativa	discreta."
+            "El conjunto de datos planets contiene las variables vistas anteriormente. "
+            "Podemos observar que method es el método utilizado para descubrir el planeta. "
+            "Esta es una variable cualitativa nominal. "
+            "Number es la cantidad de planetas descubiertos alrededor de una estrella. "
+            "Esta es una variable cuantitativa discreta. "
+            "Orbital_period es el tiempo que tarda un planeta en completar una órbita "
+            "alrededor de su estrella, medido en días. Esta es una variable cuantitativa continua. "
+            "La variable mass representa la masa del planeta, expresada en relación con "
+            "la masa de Júpiter. Esta es una variable cuantitativa continua. "
+            "La variable distance representa la distancia entre el sistema planetario y "
+            "la Tierra, expresada en pársecs. Esta es una variable cuantitativa continua. "
+            "Por último, la variable year corresponde al año en que fue descubierto el planeta. "
+            "Esta es una variable cuantitativa discreta.",
+            class_="descripcion"
         ),
 
-        ui.h3("Objetivo"),
+        ui.h3("Objetivo", class_="seccion"),
 
         ui.p(
             "Analizar los métodos de descubrimiento "
             "de planetas y la distribución de sus "
-            "períodos orbitales."
+            "períodos orbitales.",
+            class_="descripcion"
         ),
 
-        ui.h3("Preguntas de investigación"),
+        ui.h3("Preguntas de investigación", class_="seccion"),
 
-               ui.tags.ol(
-            ui.tags.li(
-                "¿Cuál es el método mediante el cual "
-                "se han descubierto más planetas?"
-            ),
+        ui.div(
+            ui.div("PREGUNTA 1", class_="pregunta-titulo"),
+            "¿Cuál es el método mediante el cual se han descubierto más planetas?",
+            class_="pregunta"
+        ),
 
-            ui.tags.li(
-                "¿Cómo ha evolucionado la cantidad de planetas "
-                "descubiertos cada año y qué métodos han aportado "
-                "más en cada etapa?"
-            ),
-            ui.tags.li(
-                "¿Son los planetas que detecta Radial Velocity "
-                "más livianos y más lejanos con el paso de las décadas?"
-            ),
-            ui.tags.li(
-                "¿Cada método de descubrimiento detecta planetas en una "
-                "zona distinta de período orbital y distancia?"
-            )
-        )
-    ),
+        ui.div(
+            ui.div("PREGUNTA 2", class_="pregunta-titulo"),
+            "¿Cómo ha evolucionado la cantidad de planetas descubiertos cada año "
+            "y qué métodos han aportado más en cada etapa?",
+            class_="pregunta"
+        ),
+
+        ui.div(
+            ui.div("PREGUNTA 3", class_="pregunta-titulo"),
+            "¿Son los planetas que detecta Radial Velocity más livianos "
+            "y más lejanos con el paso de las décadas?",
+            class_="pregunta"
+        ),
+
+        ui.div(
+            ui.div("PREGUNTA 4", class_="pregunta-titulo"),
+            "¿Cada método de descubrimiento detecta planetas en una "
+            "zona distinta de período orbital y distancia?",
+            class_="pregunta"
+        ),
+
+        class_="contenido-descripcion"
+    )
+),
+
 
 
 
