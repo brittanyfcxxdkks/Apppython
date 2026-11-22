@@ -312,38 +312,40 @@ app_ui = ui.page_navbar(
 
 
 
-    ui.nav_panel(
-        "Análisis interactivo",
+ui.nav_panel(
+    "Análisis interactivo",
 
-        ui.layout_sidebar(
+    ui.h4("¿Cuál es el método mediante el cual se han descubierto más planetas?"),
 
-            ui.sidebar(
+    ui.layout_sidebar(
 
-                ui.h4("Filtros"),
+        ui.sidebar(
 
-                ui.input_selectize(
-                    "metodo",
-                    "Método de descubrimiento:",
-                    choices=metodos,
-                    selected=metodos,
-                    multiple=True
-                )
-            ),
+            ui.h4("Filtros"),
 
-            ui.h3("Visualización de datos"),
+            ui.input_selectize(
+                "metodo",
+                "Método de descubrimiento:",
+                choices=metodos,
+                selected=metodos,
+                multiple=True
+            )
+        ),
 
-            ui.navset_tab(
+        ui.h3("Visualización de datos"),
 
-                ui.nav_panel(
-                    "Descubrimientos por método",
+        ui.navset_tab(
 
-                    ui.card(
-                        output_widget("grafico_metodos")
-                    )
+            ui.nav_panel(
+                "Descubrimientos por método",
+
+                ui.card(
+                    output_widget("grafico_metodos")
                 )
             )
         )
-    ),
+    )
+),
 
     panel_warren,
     *paneles_extra(planets),
