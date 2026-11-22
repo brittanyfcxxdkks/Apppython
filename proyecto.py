@@ -12,141 +12,303 @@ planets = sns.load_dataset("planets")
 
 metodos = sorted(planets["method"].dropna().unique())
 
+# ---------- Datos y ayudas para la pestaña de descripción ----------
+n_planetas = len(planets)
+n_metodos = int(planets["method"].nunique())
+anio_min = int(planets["year"].min())
+anio_max = int(planets["year"].max())
+n_variables = int(planets.shape[1])
+
+
+def pct_con_datos(columna):
+    """Porcentaje de planetas que tienen dato en esa columna, como texto."""
+    return f"{planets[columna].notna().mean():.0%}"
+
+
+# (variable, qué significa, tipo)
+variables_descripcion = [
+    ("method", "Método utilizado para descubrir el planeta", "Cualitativa nominal"),
+    (
+        "number",
+        "Cantidad de planetas descubiertos alrededor de una estrella",
+        "Cuantitativa discreta",
+    ),
+    (
+        "orbital_period",
+        "Tiempo que tarda el planeta en completar una órbita alrededor de su "
+        "estrella (días)",
+        "Cuantitativa continua",
+    ),
+    (
+        "mass",
+        "Masa del planeta, expresada en relación con la masa de Júpiter",
+        "Cuantitativa continua",
+    ),
+    (
+        "distance",
+        "Distancia entre el sistema planetario y la Tierra (pársecs)",
+        "Cuantitativa continua",
+    ),
+    ("year", "Año en que fue descubierto el planeta", "Cuantitativa discreta"),
+]
+
+pasos_app = [
+    "Navega por las pestañas de la barra superior: cada una responde una de "
+    "las preguntas de investigación.",
+    "Usa los filtros de la barra lateral (métodos, escala, etc.) para cambiar "
+    "lo que muestran los gráficos.",
+    "Pasa el mouse sobre los puntos y las barras para ver los valores exactos.",
+    "En «Período y distancia por método», la subpestaña «Mapa por año» tiene "
+    "un botón de play que recorre los descubrimientos año por año.",
+    "Los gráficos se pueden ampliar, mover y descargar como imagen con los "
+    "íconos de la esquina superior derecha.",
+]
+
+# Cada pregunta indica en qué pestaña se responde.
+# Si cambian los nombres de las pestañas, se actualizan aquí.
+preguntas = [
+    {
+        "texto": "¿Cuál es el método mediante el cual se han descubierto más planetas?",
+        "pestana": "Análisis interactivo › Descubrimientos por método",
+    },
+    {
+        "texto": (
+            "¿Cómo ha evolucionado la cantidad de planetas descubiertos cada año "
+            "y qué métodos han aportado más en cada etapa?"
+        ),
+        "pestana": "Evolución de los descubrimientos › Línea de tiempo",
+    },
+    {
+        "texto": (
+            "¿Son los planetas que detecta Radial Velocity más livianos "
+            "y más lejanos con el paso de las décadas?"
+        ),
+        "pestana": "Evolución de los descubrimientos › Masa y distancia por década",
+    },
+    {
+        "texto": (
+            "¿Cada método de descubrimiento detecta planetas en una "
+            "zona distinta de período orbital y distancia?"
+        ),
+        "pestana": "Período y distancia por método",
+    },
+]
+
+
+def tarjeta_stat(valor, etiqueta):
+    return ui.div(
+        ui.div(valor, class_="desc-stat-valor"),
+        ui.div(etiqueta, class_="desc-stat-etiqueta"),
+        class_="desc-stat",
+    )
+
+
+def tarjeta_pregunta(numero, pregunta):
+    return ui.div(
+        ui.div(f"PREGUNTA {numero}", class_="pregunta-titulo"),
+        pregunta["texto"],
+        ui.div(
+            "Se responde en: ",
+            ui.tags.span(pregunta["pestana"], class_="desc-etiqueta"),
+            class_="desc-donde",
+        ),
+        class_="pregunta",
+    )
+
+
+def tabla_variables():
+    filas = [
+        ui.tags.tr(
+            ui.tags.td(ui.tags.code(variable)),
+            ui.tags.td(significado),
+            ui.tags.td(tipo),
+            ui.tags.td(pct_con_datos(variable)),
+        )
+        for variable, significado, tipo in variables_descripcion
+    ]
+    return ui.div(
+        ui.tags.table(
+            ui.tags.thead(
+                ui.tags.tr(
+                    ui.tags.th("Variable"),
+                    ui.tags.th("Qué significa"),
+                    ui.tags.th("Tipo"),
+                    ui.tags.th("Con datos"),
+                )
+            ),
+            ui.tags.tbody(*filas),
+            class_="table table-sm desc-tabla",
+        ),
+        style="overflow-x: auto;",
+    )
+
 
 app_ui = ui.page_navbar(
+    ui.nav_panel(
+        "Descripción del proyecto",
 
+        ui.tags.style("""
+            .descripcion {
+                font-size: 18px;
+                line-height: 1.8;
+                text-align: justify;
+            }
 
+            .seccion {
+                margin-top: 30px;
+                margin-bottom: 14px;
+            }
 
-    
+            .pregunta {
+                background-color: rgba(70, 130, 180, 0.10);
+                border: 1px solid rgba(70, 130, 180, 0.25);
+                border-left: 5px solid #4682B4;
+                padding: 20px 22px;
+                margin: 14px 0;
+                border-radius: 10px;
+                font-size: 17px;
+                line-height: 1.7;
+            }
 
-ui.nav_panel(
-    "Descripción del proyecto",
+            .pregunta-titulo {
+                font-size: 16px;
+                font-weight: bold;
+                color: #4682B4;
+                margin-bottom: 8px;
+                letter-spacing: 0.5px;
+            }
 
-    ui.tags.style("""
-        .descripcion {
-            font-size: 18px;
-            line-height: 1.8;
-            text-align: justify;
-        }
+            .contenido-descripcion {
+                max-width: 1100px;
+                margin: auto;
+                padding: 15px 20px;
+            }
 
-        .seccion {
-            margin-top: 30px;
-            margin-bottom: 14px;
-        }
+            .desc-grid .pregunta {
+                margin: 0;
+                height: 100%;
+            }
 
-        .pregunta {
-            background-color: rgba(70, 130, 180, 0.10);
-            border: 1px solid rgba(70, 130, 180, 0.25);
-            border-left: 5px solid #4682B4;
-            padding: 20px 22px;
-            margin: 14px 0;
-            border-radius: 10px;
-            font-size: 17px;
-            line-height: 1.7;
-        }
+            .desc-donde {
+                margin-top: 12px;
+                font-size: 14px;
+            }
 
-        .pregunta-titulo {
-            font-size: 16px;
-            font-weight: bold;
-            color: #4682B4;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
+            .desc-etiqueta {
+                display: inline-block;
+                padding: 2px 10px;
+                border-radius: 999px;
+                background-color: rgba(70, 130, 180, 0.25);
+            }
 
-        .contenido-descripcion {
-            max-width: 1100px;
-            margin: auto;
-            padding: 15px 20px;
-        }
-    """),
+            .desc-stat {
+                text-align: center;
+                padding: 16px 8px;
+                border: 1px solid rgba(70, 130, 180, 0.25);
+                border-radius: 12px;
+                background-color: rgba(70, 130, 180, 0.10);
+            }
 
-    ui.div(
-        ui.h2("Exploración de datos sobre planetas"),
+            .desc-stat-valor {
+                font-size: 32px;
+                font-weight: bold;
+                line-height: 1.1;
+                color: #4682B4;
+            }
 
-        ui.p(
-            "En este proyecto se analiza información "
-            "sobre planetas descubiertos fuera de "
-            "nuestro sistema solar.",
-            class_="descripcion"
-        ),
+            .desc-stat-etiqueta {
+                margin-top: 4px;
+                font-size: 13px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                opacity: 0.8;
+            }
 
-        ui.h3("Conjunto de datos", class_="seccion"),
-
-        ui.p(
-            "Se utiliza el conjunto de datos planets "
-            "de Seaborn, que contiene información sobre "
-            "los métodos de descubrimiento y diferentes "
-            "características de los planetas.",
-            class_="descripcion"
-        ),
-
-        ui.h4("Tabla de datos", class_="seccion"),
-
-        ui.card(
-            ui.output_data_frame("tabla_planetas")
-        ),
-
-        ui.h3("Descripción de las variables", class_="seccion"),
-
-        ui.p(
-            "El conjunto de datos planets contiene las variables vistas anteriormente. "
-            "Podemos observar que method es el método utilizado para descubrir el planeta. "
-            "Esta es una variable cualitativa nominal. "
-            "Number es la cantidad de planetas descubiertos alrededor de una estrella. "
-            "Esta es una variable cuantitativa discreta. "
-            "Orbital_period es el tiempo que tarda un planeta en completar una órbita "
-            "alrededor de su estrella, medido en días. Esta es una variable cuantitativa continua. "
-            "La variable mass representa la masa del planeta, expresada en relación con "
-            "la masa de Júpiter. Esta es una variable cuantitativa continua. "
-            "La variable distance representa la distancia entre el sistema planetario y "
-            "la Tierra, expresada en pársecs. Esta es una variable cuantitativa continua. "
-            "Por último, la variable year corresponde al año en que fue descubierto el planeta. "
-            "Esta es una variable cuantitativa discreta.",
-            class_="descripcion"
-        ),
-
-        ui.h3("Objetivo", class_="seccion"),
-
-        ui.p(
-            "Analizar los métodos de descubrimiento "
-            "de planetas y la distribución de sus "
-            "períodos orbitales.",
-            class_="descripcion"
-        ),
-
-        ui.h3("Preguntas de investigación", class_="seccion"),
+            .desc-tabla thead th {
+                background-color: rgba(70, 130, 180, 0.25);
+            }
+        """),
 
         ui.div(
-            ui.div("PREGUNTA 1", class_="pregunta-titulo"),
-            "¿Cuál es el método mediante el cual se han descubierto más planetas?",
-            class_="pregunta"
-        ),
+            ui.h2("Exploración de datos sobre planetas"),
 
-        ui.div(
-            ui.div("PREGUNTA 2", class_="pregunta-titulo"),
-            "¿Cómo ha evolucionado la cantidad de planetas descubiertos cada año "
-            "y qué métodos han aportado más en cada etapa?",
-            class_="pregunta"
-        ),
+            ui.p(
+                "En este proyecto se analiza información "
+                "sobre planetas descubiertos fuera de "
+                "nuestro sistema solar.",
+                class_="descripcion"
+            ),
 
-        ui.div(
-            ui.div("PREGUNTA 3", class_="pregunta-titulo"),
-            "¿Son los planetas que detecta Radial Velocity más livianos "
-            "y más lejanos con el paso de las décadas?",
-            class_="pregunta"
-        ),
+            ui.layout_columns(
+                tarjeta_stat(str(n_planetas), "planetas"),
+                tarjeta_stat(str(n_metodos), "métodos de descubrimiento"),
+                tarjeta_stat(f"{anio_min}–{anio_max}", "años de descubrimiento"),
+                tarjeta_stat(str(n_variables), "variables"),
+                col_widths=(3, 3, 3, 3),
+            ),
 
-        ui.div(
-            ui.div("PREGUNTA 4", class_="pregunta-titulo"),
-            "¿Cada método de descubrimiento detecta planetas en una "
-            "zona distinta de período orbital y distancia?",
-            class_="pregunta"
-        ),
+            ui.h3("Conjunto de datos", class_="seccion"),
 
-        class_="contenido-descripcion"
-    )
-),
+            ui.layout_columns(
+                ui.card(
+                    ui.card_header("Sobre los datos"),
+                    ui.p(
+                        "Se utiliza el conjunto de datos ",
+                        ui.tags.em("planets"),
+                        " de Seaborn, que contiene información sobre los "
+                        "métodos de descubrimiento y diferentes "
+                        "características de los planetas. Cada fila es un planeta."
+                    ),
+                    ui.p(
+                        "No todos los planetas tienen todos los datos: tiene masa "
+                        f"el {pct_con_datos('mass')}, distancia el "
+                        f"{pct_con_datos('distance')} y período orbital el "
+                        f"{pct_con_datos('orbital_period')}. Por eso algunos "
+                        "gráficos usan menos planetas que el total."
+                    ),
+                ),
+                ui.card(
+                    ui.card_header("Cómo usar la app"),
+                    ui.tags.ol(*[ui.tags.li(paso) for paso in pasos_app]),
+                ),
+                col_widths=(7, 5),
+            ),
 
+            ui.h4("Tabla de datos", class_="seccion"),
+
+            ui.card(
+                ui.output_data_frame("tabla_planetas")
+            ),
+
+            ui.h3("Descripción de las variables", class_="seccion"),
+
+            ui.card(
+                tabla_variables()
+            ),
+
+            ui.h3("Objetivo", class_="seccion"),
+
+            ui.p(
+                "Analizar los métodos de descubrimiento "
+                "de planetas y la distribución de sus "
+                "períodos orbitales.",
+                class_="descripcion"
+            ),
+
+            ui.h3("Preguntas de investigación", class_="seccion"),
+
+            ui.layout_columns(
+                *[
+                    tarjeta_pregunta(i, pregunta)
+                    for i, pregunta in enumerate(preguntas, start=1)
+                ],
+                col_widths=(6, 6),
+                class_="desc-grid",
+            ),
+
+            class_="contenido-descripcion"
+        )
+    ),
 
 
 
@@ -182,7 +344,7 @@ ui.nav_panel(
             )
         )
     ),
-    
+
     panel_warren,
     *paneles_extra(planets),
 

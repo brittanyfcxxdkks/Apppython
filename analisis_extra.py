@@ -11,6 +11,9 @@ Uso en proyecto.py:
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+from shinywidgets import register_widget
+from shiny import reactive
 from shiny import ui, render, reactive
 from shinywidgets import output_widget, render_widget
 
@@ -212,7 +215,7 @@ def paneles_extra(planets):
                         step=1,
                         sep="",
                         width="100%",
-                        animate=ui.AnimationOptions(interval=600, loop=True),
+                        animate=ui.AnimationOptions(interval=2000, loop=True),
                     ),
                     ui.card(output_widget("ex_grafico_animado")),
                     ui.card(
@@ -296,15 +299,22 @@ def servidor_extra(input, output, session, planets):
         )
         return _estilo(fig)
 
-    @render_widget
-    def ex_grafico_animado():
-        return _fig_anio(
+    fw = go.FigureWidget()
+    register_widget("ex_grafico_animado", fw)
+
+    @reactive.effect
+    def _actualizar_animado():
+        nueva = _fig_anio(
             datos_p5(),
             input.ex_anio_anim(),
             input.ex_modo_anim(),
             input.ex_log_p5(),
             colores,
         )
+        with fw.batch_update():
+            fw.data = []                 
+            fw.add_traces(nueva.data)    
+            fw.layout = nueva.layout
 
     @render.data_frame
     def ex_tabla_anio():
