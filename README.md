@@ -1,14 +1,8 @@
-# Apppython
-
-Proyecto
-
-1. Este archivo contiene la informacion de
-donde se estudian mediente graficos
-2. Integrantes: Warren Murillo Morales, Brittany Sibaja Artavia, Jair Pérez Aburto.
 
 # Análisis de exoplanetas con Shiny para Python
 
 Proyecto del curso XS-0130 Programación para Estadística II · Universidad de Costa Rica
+Integrantes: Warren Murillo Morales, Brittany Sibaja Artavia, Jair Pérez Aburto.
 
 ## Descripción
 
@@ -36,7 +30,7 @@ Analizar cómo los distintos métodos de descubrimiento de exoplanetas han contr
 |---|---|---|
 | Brittany Sibaja Artavia (GitHub: `brittanyfcxxdkks`) | Pestaña «Análisis interactivo»: descubrimientos por método | `rama_de_bri` |
 | Warren Murillo Morales (GitHub: `warrenmurillo2005`) | Pestaña «Evolución de los descubrimientos»: línea de tiempo y masa y distancia por década | `rama_de_warren` e `integracion_graficos_warren` |
-| Jair Pérez Aburto (GitHub: `perezjair760-coder`) | Pestaña «Período y distancia por método»: mapa de detección, mapa por año y resumen por método | `rama_de_jair` |
+| Jair Pérez Aburto (GitHub: `perezjair760-coder`) | Pestaña «Período y distancia por método»: Período vs distancia, Período vs distancia, según año y resumen por método | `rama_de_jair` |
 
 ## Datos
 
@@ -100,7 +94,7 @@ descubrimiento.
 
 - **Período orbital vs distancia.** Dispersión del período orbital contra la distancia a la Tierra, con un color por
   método y opción de escala logarítmica. Filtro por método.
-- **Período orbital vs distancia según año.** El mismo mapa mostrado año a año, con una barra de tiempo con botón de reproducción, opción
+- **Período orbital vs distancia según año.** El mismo gráfico mostrado año a año, con una barra de tiempo con botón de reproducción, opción
   de ver los planetas acumulados hasta ese año o solo los descubiertos ese año, y una tabla con los planetas por
   método en el año elegido.
 - **Resumen por método.** Tabla con la cantidad de planetas, el período mediano y la distancia mediana de cada
@@ -149,7 +143,7 @@ el módulo de Warren con `proyecto.py`) y `rama_de_jair` (Pull Request #3).
 - La masa solo se conoce para menos de la mitad de los planetas, y casi toda corresponde a Radial Velocity. Por
   eso las conclusiones sobre la masa describen a los planetas que ese método puede detectar y no a todos los
   exoplanetas.
-- Los mapas de período y distancia solo dibujan los 776 planetas que tienen ambos datos; algunos métodos, como
+- Los gráficos de período y distancia solo dibujan los 776 planetas que tienen ambos datos; algunos métodos, como
   Microlensing, no aparecen porque ninguno de sus planetas cumple esa condición.
 - En Radial Velocity la masa publicada suele ser una masa mínima y no un valor exacto.
 - Un cambio entre décadas puede reflejar el método usado en cada época y no solo cómo son los planetas.
