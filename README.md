@@ -19,8 +19,7 @@ qué características (masa, período orbital y distancia) tienen los planetas q
 
 ## Objetivo
 
-Analizar los métodos de descubrimiento de exoplanetas, su evolución en el tiempo y las características de
-los planetas que detecta cada uno.
+Analizar cómo los distintos métodos de descubrimiento de exoplanetas han contribuido a lo largo del tiempo y qué tipo de planetas detecta cada uno, según su período orbital, distancia y masa.
 
 ## Preguntas de investigación
 
