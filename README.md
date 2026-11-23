@@ -30,7 +30,7 @@ Analizar cómo los distintos métodos de descubrimiento de exoplanetas han contr
 |---|---|---|
 | Brittany Sibaja Artavia (GitHub: `brittanyfcxxdkks`) | Pestaña «Análisis interactivo»: descubrimientos por método | `rama_de_bri` |
 | Warren Murillo Morales (GitHub: `warrenmurillo2005`) | Pestaña «Evolución de los descubrimientos»: línea de tiempo y masa y distancia por década | `rama_de_warren` e `integracion_graficos_warren` |
-| Jair Pérez Aburto (GitHub: `perezjair760-coder`) | Pestaña «Período y distancia por método»: Período vs distancia, Período vs distancia, según año y resumen por método | `rama_de_jair` |
+| Jair Pérez Aburto (GitHub: `perezjair760-coder`) | Pestaña «Período y distancia por método»: Período vs distancia, Período vs distancia, según año y resumen por método | `rama_de_jair` y `prueba_extra`|
 
 ## Datos
 
