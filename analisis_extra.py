@@ -172,11 +172,11 @@ def paneles_extra(planets):
             ),
             ui.navset_tab(
                 ui.nav_panel(
-                    "Mapa de detección",
+                    "Período vs distancia",
                     ui.card(output_widget("ex_grafico_mapa")),
                 ),
                 ui.nav_panel(
-                    "Mapa por año",
+                    "Período vs distancia, según el año",
                     ui.p(
                         "Elige qué ver con la barra de años, o escribe un año "
                         "específico. El botón de play, debajo de la barra, "
