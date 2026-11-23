@@ -154,3 +154,4 @@ el módulo de Warren con `proyecto.py`) y `rama_de_jair` (Pull Request #3).
   Microlensing, no aparecen porque ninguno de sus planetas cumple esa condición.
 - En Radial Velocity la masa publicada suele ser una masa mínima y no un valor exacto.
 - Un cambio entre décadas puede reflejar el método usado en cada época y no solo cómo son los planetas.
+- No se conoce el nombre de los planetas, así como el sistema planetario a el que pertenecen.
