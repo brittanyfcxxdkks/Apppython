@@ -7,7 +7,6 @@ from shinywidgets import output_widget, render_widget
 from grafico_warren import panel_warren, servidor_warren
 from analisis_extra import paneles_extra, servidor_extra
 from tema_planetas import TEMA, estilo_global, estilo_plotly
-planets= sns.load_dataset("planets")
 planets = sns.load_dataset("planets")
 
 metodos = sorted(planets["method"].dropna().unique())
@@ -58,7 +57,7 @@ pasos_app = [
     "Usa los filtros de la barra lateral (métodos, escala, etc.) para cambiar "
     "lo que muestran los gráficos.",
     "Pasa el mouse sobre los puntos y las barras para ver los valores exactos.",
-    "En «Período y distancia por método», la subpestaña «Mapa por año» tiene "
+    "En «Período y distancia por método», la subpestaña «Período vs distancia, según el año» tiene "
     "un botón de play que recorre los descubrimientos año por año.",
     "Los gráficos se pueden ampliar, mover y descargar como imagen con los "
     "íconos de la esquina superior derecha.",
@@ -301,7 +300,7 @@ app_ui = ui.page_navbar(
                     tarjeta_pregunta(i, pregunta)
                     for i, pregunta in enumerate(preguntas, start=1)
                 ],
-                col_wiMapaths=(6, 6),
+                col_widths=(6, 6),
                 class_="desc-grid",
             ),
 
