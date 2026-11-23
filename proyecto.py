@@ -289,9 +289,8 @@ app_ui = ui.page_navbar(
             ui.h3("Objetivo", class_="seccion"),
 
             ui.p(
-                "Analizar los métodos de descubrimiento "
-                "de planetas y la distribución de sus "
-                "períodos orbitales.",
+               "Analizar cómo los distintos métodos de descubrimiento de exoplanetas han contribuido a lo largo del tiempo "
+                "y qué tipo de planetas detecta cada uno, según su período orbital, distancia y masa.",
                 class_="descripcion"
             ),
 
@@ -302,7 +301,7 @@ app_ui = ui.page_navbar(
                     tarjeta_pregunta(i, pregunta)
                     for i, pregunta in enumerate(preguntas, start=1)
                 ],
-                col_widths=(6, 6),
+                col_wiMapaths=(6, 6),
                 class_="desc-grid",
             ),
 
