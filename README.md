@@ -98,9 +98,9 @@ descubrimiento.
 
 ### Período y distancia por método
 
-- **Mapa de detección.** Dispersión del período orbital contra la distancia a la Tierra, con un color por
+- **Período orbital vs distancia.** Dispersión del período orbital contra la distancia a la Tierra, con un color por
   método y opción de escala logarítmica. Filtro por método.
-- **Mapa por año.** El mismo mapa mostrado año a año, con una barra de tiempo con botón de reproducción, opción
+- **Período orbital vs distancia según año.** El mismo mapa mostrado año a año, con una barra de tiempo con botón de reproducción, opción
   de ver los planetas acumulados hasta ese año o solo los descubiertos ese año, y una tabla con los planetas por
   método en el año elegido.
 - **Resumen por método.** Tabla con la cantidad de planetas, el período mediano y la distancia mediana de cada
