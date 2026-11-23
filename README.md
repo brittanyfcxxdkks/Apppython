@@ -129,7 +129,7 @@ Cifras obtenidas con la aplicación:
 git clone https://github.com/brittanyfcxxdkks/Apppython.git
 cd Apppython
 pip install -r requirements.txt
-shiny run proyecto.py
+python -m shiny run proyecto.py
 ```
 
 Después se abre en el navegador la dirección que aparece en la terminal (normalmente `http://127.0.0.1:8000`).
