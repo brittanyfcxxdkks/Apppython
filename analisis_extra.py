@@ -51,7 +51,7 @@ def _fig_vacia(texto="No hay datos con los filtros elegidos"):
 
 
 def _mapa_colores(planets):
-    """Un color fijo por método, igual en el mapa normal y en el animado."""
+    """Un color fijo por método, igual en el gráfico normal y en el animado."""
     paleta = px.colors.qualitative.Plotly
     metodos = sorted(planets["method"].dropna().unique())
     return {m: paleta[i % len(paleta)] for i, m in enumerate(metodos)}
@@ -69,7 +69,7 @@ def _filtrar_anio(d, anio, modo):
 
 
 def _fig_anio(d, anio, modo, log, colores):
-    """Mapa período vs distancia para un año (o hasta un año), con ejes fijos."""
+    """Gráfico de período vs distancia para un año (o hasta un año), con ejes fijos."""
     d = d.dropna(subset=["year"])
     if d.empty:
         return _fig_vacia()
@@ -98,7 +98,7 @@ def _fig_anio(d, anio, modo, log, colores):
         },
     )
 
-    # Ejes fijos (calculados con todos los años) para que el mapa no "salte"
+    # Ejes fijos (calculados con todos los años) para que el gráfico no "salte"
     for eje, col in (("x", "orbital_period"), ("y", "distance")):
         if log:
             positivos = d.loc[d[col] > 0, col]
@@ -115,7 +115,7 @@ def _fig_anio(d, anio, modo, log, colores):
 
 def _tabla_anio(d, anio, modo):
     """Cuántos planetas hay por método en el año elegido."""
-    columnas = ["Método", "Descubiertos", "Con período y distancia (en el mapa)"]
+    columnas = ["Método", "Descubiertos", "Con período y distancia (en el gráfico)"]
     d = d.dropna(subset=["method", "year"])
     d = _filtrar_anio(d, anio, modo)
     if d.empty:
@@ -180,7 +180,7 @@ def paneles_extra(planets):
                     ui.p(
                         "Elige qué ver con la barra de años, o escribe un año "
                         "específico. El botón de play, debajo de la barra, "
-                        "avanza año por año. El mapa solo dibuja los planetas "
+                        "avanza año por año. El gráfico solo dibuja los planetas "
                         "con período y distancia conocidos, así que algunos "
                         "métodos aparecen más tarde que en el conteo total "
                         "(mira la tabla).",
