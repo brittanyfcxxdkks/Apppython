@@ -135,7 +135,13 @@ Los datos se cargan con seaborn, por lo que la primera ejecución puede requerir
 
 Cada integrante desarrolló su parte en una rama propia y la integró a `main` mediante Pull Request:
 `rama_de_bri` (Pull Request #1), `rama_de_warren` (Pull Request #2), `integracion_graficos_warren` (que conecta
-el módulo de Warren con `proyecto.py`) y `rama_de_jair` (Pull Request #3).
+el módulo de Warren con `proyecto.py`) y `rama_de_jair` (Pull Request #3), en esta última rama se utilizó el documento
+`analisis_extra` para incluir ciertos gráficos que ayudan a responder una de las preguntas planteadas.
+
+Se decidió trabajar en documentos aparte como lo es el caso de `analisis_extra` y `grafico_warren` para mantener un orden
+un orden en el trabajo, de esta manera se puede apreciar mejor la contribución de los integrantes al desarrollo de la app
+en Shiny. Por lo que, una vez se terminó de trabajar en cada documento por aparte, estos desde `rama_de_jair` y `rama_de_warren`
+se importan al main, directamente a lo que sería `proyecto.py`
 
 ## Limitaciones
 
